@@ -100,9 +100,10 @@ function onSubmitNickname(event) {
     .then((Response) => Response.json())
     .then((data) => {
       console.log(data);
-      information.innerText = data.level;
+      information.innerText = `level. ${data.level}`;
       const playerID = data.accessId;
       const URL_HISTORY = `https://api.nexon.co.kr/fifaonline4/v1.0/users/${playerID}/maxdivision`;
+      const URL_MATCH = `https://api.nexon.co.kr/fifaonline4/v1.0/users/${playerID}/matches?matchtype=50&offset=1&limit=5`;
       fetch(URL_HISTORY, {
         headers: {
           Authorization: API_KEY,
@@ -110,15 +111,39 @@ function onSubmitNickname(event) {
       })
         .then((Response) => Response.json())
         .then((HistoryData) => {
-          console.log(HistoryData);
           Division.forEach((d) => {
             if (d.divisionId === HistoryData[0].division) {
               playerHistory.innerText = d.divisionName;
-              playerImage.href = `image/ico_rank_${d.divisionId}.png`;
-              console.dir(playerImage);
+              playerImage.src = `image/ico_rank${d.divisionId}.png`;
               document.body.appendChild(playerHistory);
               document.body.appendChild(playerImage);
             }
+          });
+        });
+      const matchResult = [{ date: "", result: "" }];
+      //
+      fetch(URL_MATCH, {
+        headers: {
+          Authorization: API_KEY,
+        },
+      })
+        .then((Response) => Response.json())
+        .then((matchData) => {
+          matchData.forEach((d) => {
+            const URL_MATCH_DETAIL = `https://api.nexon.co.kr/fifaonline4/v1.0/matches/${d}`;
+            fetch(URL_MATCH_DETAIL, {
+              headers: {
+                Authorization: API_KEY,
+              },
+            })
+              .then((Response) => Response.json())
+              .then((detailData) => {
+                matchResult.push = {
+                  date: detailData.matchDate,
+                  result: detailData.matchInfo[0].matchDetail.matchResult,
+                };
+              });
+            console.log(matchResult);
           });
         });
     });
