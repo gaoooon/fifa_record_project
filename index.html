@@ -5,17 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="style.css" />
+    <script defer src="script.js"></script>
   </head>
   <body>
-    <img src="image\sprite_210600.png" alt="피파온라인 로고" />
+    <img id="mainLogo" src="image\FIFA.png" alt="피파온라인 로고" />
     <form id="inputSubmit">
       <input
-        type="text"
-        placeholder="what your game nickname"
         id="inputNickname"
+        type="text"
+        placeholder="what your fifa nickname"
       />
     </form>
-    <div id="NicknameHistory"></div>
-    <script src="script.js"></script>
+    <div id="NicknameHistory">
+      <div id="user">
+        <div id="userName"></div>
+        <div id="userRank"></div>
+      </div>
+      <div id="matches"></div>
+    </div>
   </body>
 </html>

@@ -1,3 +1,5 @@
+@import "reset.css";
+
 @font-face {
   font-family: "NEXONFootballGothicBA1";
   src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXONFootballGothicBA1.woff")
@@ -6,6 +8,58 @@
   font-style: normal;
 }
 
+html {
+  height: 100%;
+  background: linear-gradient(to bottom, #015ffdff, #e744f5ff);
+}
+
 body {
   font-family: "NEXONFootballGothicBA1";
+  /* background-color: #015ffdff; */
+  /* background-image: url(image/background.jpg); */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+
+#mainLogo {
+  width: 300px;
+  margin: 50px 0 30px 0;
+}
+
+#inputNickname {
+  border: 5px solid black;
+  width: 300px;
+  height: 50px;
+  border-radius: 30px;
+  outline: none;
+  text-align: center;
+  font-family: "NEXONFootballGothicBA1";
+  font-size: large;
+  margin-bottom: 50px;
+}
+
+#NicknameHistory {
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#userName {
+  opacity: 1;
+  display: inline-block;
+  background-color: #fff;
+  border-radius: 10px;
+  font-size: 30px;
+}
+
+#userRank {
+  opacity: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 10px;
 }
