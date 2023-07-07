@@ -90,12 +90,36 @@ const matches = document.getElementById("matches");
 const userInformation = document.getElementById("user");
 const userName = document.getElementById("userName");
 const userRank = document.getElementById("userRank");
+const buttonReset = document.querySelector("#reset");
+const buttonSearch = document.querySelector("#search");
 
-const matchRecord0 = document.createElement("div");
-const matchRecord1 = document.createElement("div");
-const matchRecord2 = document.createElement("div");
-const matchRecord3 = document.createElement("div");
-const matchRecord4 = document.createElement("div");
+const record = document.createElement("div");
+
+inputSubmit.addEventListener("submit", onSubmitNickname);
+buttonReset.addEventListener("click", onClickReset);
+
+function onClickReset() {
+  const information = document.getElementById("NicknameHistory");
+
+  while (matches.firstChild) {
+    matches.firstChild.remove();
+  }
+
+  while (userName.firstChild) {
+    userName.firstChild.remove();
+  }
+
+  while (userRank.firstChild) {
+    userRank.firstChild.remove();
+  }
+
+  userName.style = null;
+  information.style = null;
+
+  inputNickname.value = "";
+
+  buttonSearch.removeAttribute("disabled");
+}
 
 // function onSubmitNickname(event) {
 //   event.preventDefault();
@@ -166,15 +190,9 @@ const matchRecord4 = document.createElement("div");
 //     });
 // }
 function onSubmitNickname(event) {
+  buttonSearch.disabled = true;
   event.preventDefault();
   const Nickname = inputNickname.value;
-  if (Nickname === null) {
-    matchRecord0.remove();
-    matchRecord1.remove();
-    matchRecord2.remove();
-    matchRecord3.remove();
-    matchRecord4.remove();
-  }
   const information = document.getElementById("NicknameHistory");
   console.dir(information);
   information.style.width = "500px";
@@ -279,24 +297,18 @@ function onSubmitNickname(event) {
             //   matchRecord.innerText = `${number} ${matchResult[i].result}`;
             //   matches.appendChild(matchRecord);
             // }
-            const record = document.createElement("div");
+            console.log(matchResult);
             record.innerText = "최근 전적";
+            record.className = "latest";
             matches.appendChild(record);
-            const number0 = matchResult[0].date.substr(0, 8);
-            const number1 = matchResult[1].date.substr(0, 8);
-            const number2 = matchResult[2].date.substr(0, 8);
-            const number3 = matchResult[3].date.substr(0, 8);
-            const number4 = matchResult[4].date.substr(0, 8);
-            matchRecord0.innerText = `${number0} ${matchResult[0].result}`;
-            matchRecord1.innerText = `${number1} ${matchResult[1].result}`;
-            matchRecord2.innerText = `${number2} ${matchResult[2].result}`;
-            matchRecord3.innerText = `${number3} ${matchResult[3].result}`;
-            matchRecord4.innerText = `${number4} ${matchResult[4].result}`;
-            matches.appendChild(matchRecord0);
-            matches.appendChild(matchRecord1);
-            matches.appendChild(matchRecord2);
-            matches.appendChild(matchRecord3);
-            matches.appendChild(matchRecord4);
+
+            matchResult.forEach((item) => {
+              const matchRecord = document.createElement("div");
+              const history = item.date.substr(0, 8);
+              matchRecord.innerText = `${history} ${item.result}`;
+              matches.append(matchRecord);
+              console.log(item);
+            });
           });
         });
     });
@@ -307,5 +319,3 @@ function onSubmitNickname(event) {
 //   .then((data) => {
 //     console.log(data);
 //   });
-
-inputSubmit.addEventListener("submit", onSubmitNickname);
